@@ -107,6 +107,18 @@ public abstract class RouteOptions extends DirectionsJsonObject {
   public abstract Boolean alternatives();
 
   /**
+   * Whether to try request a refreshable routes (true) or not (false, default).
+   * Request that the route will not refresh, regardless of the profile. Routes with
+   * traffic profiles will need to be refreshed periodically. This is available for
+   * with the {@link DirectionsCriteria#PROFILE_DRIVING_TRAFFIC} profile.
+   *
+   * @return true if enabled, false or null otherwise
+   * @since 5.0.0
+   */
+  @Nullable
+  public abstract Boolean refresh();
+
+  /**
    * The language of returned turn-by-turn text instructions. The default is en (English).
    * Must be used in conjunction with {@link RouteOptions.Builder#steps(Boolean)}.
    *
@@ -593,7 +605,7 @@ public abstract class RouteOptions extends DirectionsJsonObject {
      * Whether to try to return alternative routes (true) or not (false, default). An alternative
      * route is a route that is significantly different than the fastest route, but also still
      * reasonably fast. Such a route does not exist in all circumstances. Up to two alternatives may
-     * be returned. This is available for{@link DirectionsCriteria#PROFILE_DRIVING_TRAFFIC},
+     * be returned. This is available for {@link DirectionsCriteria#PROFILE_DRIVING_TRAFFIC},
      * {@link DirectionsCriteria#PROFILE_DRIVING}, {@link DirectionsCriteria#PROFILE_CYCLING}.
      *
      * @param alternatives true if the request contained additional route request, otherwise false
@@ -601,6 +613,17 @@ public abstract class RouteOptions extends DirectionsJsonObject {
      * @since 3.0.0
      */
     public abstract Builder alternatives(@NonNull Boolean alternatives);
+
+    /**
+     * Request that the route will not refresh, regardless of the profile. Routes with
+     * traffic profiles will need to be refreshed periodically. This is available for
+     * with the {@link DirectionsCriteria#PROFILE_DRIVING_TRAFFIC} profile.
+     *
+     * @param refresh true if the route should be refreshed, otherwise false
+     * @return this builder for chaining options together
+     * @since 5.0.0
+     */
+    public abstract Builder refresh(@NonNull Boolean refresh);
 
     /**
      * The language of returned turn-by-turn text instructions. The default is en (English).
